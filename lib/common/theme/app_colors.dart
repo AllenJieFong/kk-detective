@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primaryGreen = Color(0xff00e889);
   static const Color bgColor = Color(0xFFe9e9e9);
   static const Color buttonColor = Color(0xFF0058c1);
   static const Color headerTableColor = Color(0xFF0058c1);
@@ -16,4 +15,10 @@ class AppColors {
   static const Color chartColor1 = Color(0xffff00e7);
   static const Color chartColor2 = Color(0xffffaf00);
   static const Color dropdownIcon = Color(0xff006d39);
+
+  //Figma Colors
+  static const Color bgPrimary = Color(0xff26bec9);
+  static const Color bgLight = Color(0xff80FFFF);
+  static const Color bgDarker = Color(0xff666666);
+  static const Color bgDark = Color(0xffF0F0F0);
 }
