@@ -17,34 +17,34 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appSharedData = Provider.of<AppSharedData>(context);
-    int currentPaggIndex = appSharedData.currentPaggIndex;
+    int currentPaggIndex = appSharedData.currentPageIndex;
 
     List<Widget> menuList = [
       InkWell(
         child: getNavButton("輿情監控", 0, currentPaggIndex),
         onTap: () {
-          appSharedData.currentPaggIndex = 0;
+          appSharedData.currentPageIndex = 0;
           AppRouter.instance.navigation(context, AppRouter.home);
         },
       ),
       InkWell(
         child: getNavButton("搜尋關鍵字", 1, currentPaggIndex),
         onTap: () {
-          appSharedData.currentPaggIndex = 1;
+          appSharedData.currentPageIndex = 1;
           AppRouter.instance.navigation(context, AppRouter.search);
         },
       ),
       InkWell(
         child: getNavButton("收藏", 2, currentPaggIndex),
         onTap: () {
-          appSharedData.currentPaggIndex = 2;
+          appSharedData.currentPageIndex = 2;
           AppRouter.instance.navigation(context, AppRouter.favorite);
         },
       ),
       InkWell(
         child: getNavButton("Google Trends", 3, currentPaggIndex),
         onTap: () {
-          appSharedData.currentPaggIndex = 3;
+          appSharedData.currentPageIndex = 3;
           AppRouter.instance.navigation(context, AppRouter.trend);
         },
       ),

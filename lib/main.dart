@@ -2,6 +2,7 @@ import 'package:detectivce_dashboard/common/app_shared_data.dart';
 import 'package:detectivce_dashboard/common/view/wrap_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'modules/ptt/view/ptt_page.dart';
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setPathUrlStrategy();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppSharedData.instance),
