@@ -1,9 +1,9 @@
+import 'package:detectivce_dashboard/modules/ptt/model/news_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../common/app_router.dart';
 import '../../../common/view/ProviderWidget.dart';
-import '../model/ptt_response.dart';
 import '../view_model/ptt_view_model.dart';
 
 class PTTPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class PTTPage extends StatelessWidget {
     return ProviderWidget<PTTViewModel>(
       vm: PTTViewModel(),
       init: (vm) async {
-        await vm.getPtt();
+        await vm.getNews();
       },
       builder: (context, vm, child) {
         return SingleChildScrollView(
@@ -22,23 +22,22 @@ class PTTPage extends StatelessWidget {
           crossAxisCount: 4,
           mainAxisSpacing: 4,
           crossAxisSpacing: 4,
-          children: List.generate(vm.pttList.length, (i) {
-            PTTResponse pttResponse = vm.pttList[i];
-            return getPTTItem(pttResponse, context);
+          children: List.generate(vm.newsList.length, (i) {
+            return getPTTItem(vm.newsList[i], context);
           }),
         ));
       },
     );
   }
 
-  Widget getPTTItem(PTTResponse data, BuildContext context) {
+  Widget getPTTItem(NewsResponse data, BuildContext context) {
     return Card(
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         child: InkWell(
           child: Text(
-            data.name ?? "",
+            data.title ?? "",
             style: const TextStyle(fontSize: 20),
           ),
           onTap: () {

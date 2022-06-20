@@ -1,22 +1,22 @@
 import 'dart:developer';
+import 'package:detectivce_dashboard/modules/ptt/model/news_response.dart';
+import 'package:detectivce_dashboard/network/api_client.dart';
 import 'package:flutter/material.dart';
-
-import '../../../network/api_client.dart';
-import '../model/ptt_response.dart';
 
 class PTTViewModel with ChangeNotifier {
   // 要被動態刷新的資料，取用以及被設定後會通知
-  List<PTTResponse> _pttList = [];
-  List<PTTResponse> get pttList => _pttList;
-  set pttList(List<PTTResponse> value) {
-    _pttList = value;
+  List<NewsResponse> _newsList = [];
+
+  List<NewsResponse> get newsList => _newsList;
+
+  set newsList(List<NewsResponse> value) {
+    _newsList = value;
     notifyListeners();
   }
 
-  // 呼叫API的方法
-  Future getPtt() async {
+  Future getNews() async {
     try {
-      pttList = await APIClient.instance.getPTT();
+      newsList = await APIClient.instance.getKKNews();
     } catch (e) {
       log("error: $e");
     }

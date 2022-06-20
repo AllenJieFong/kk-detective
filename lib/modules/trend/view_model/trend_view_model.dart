@@ -1,9 +1,9 @@
 import 'dart:developer';
 
+import 'package:detectivce_dashboard/network/api_client.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/model/chart_response.dart';
-import '../../../network/api_client.dart';
 import '../model/trend_response.dart';
 
 class TrendViewModel with ChangeNotifier {
