@@ -16,19 +16,19 @@ class AppRouter {
   static const pttDetail = "/ptt_detail";
 
   navigation(BuildContext context, String pageKey) {
-    var page = const WrapPage(contentPage: PTTPage());
+    var page = WrapPage(contentPage: PTTPage());
     switch (pageKey) {
       case home:
-        page = const WrapPage(contentPage: PTTPage());
+        page = WrapPage(contentPage: PTTPage());
         break;
       case search:
-        page = const WrapPage(contentPage: TransactionPage());
+        page = WrapPage(contentPage: const TransactionPage());
         break;
       case favorite:
-        page = const WrapPage(contentPage: PTTPage());
+        page = WrapPage(contentPage: PTTPage());
         break;
       case trend:
-        page = const WrapPage(contentPage: TrendPage());
+        page = WrapPage(contentPage: const TrendPage());
         break;
       case pttDetail:
         page = WrapPage(contentPage: PTTDetailPage());

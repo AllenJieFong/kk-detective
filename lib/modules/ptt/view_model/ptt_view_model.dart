@@ -21,4 +21,16 @@ class PTTViewModel with ChangeNotifier {
       log("error: $e");
     }
   }
+
+  List<bool> _isLike = [false, false, false];
+  List<bool> get isLike => _isLike;
+  set isLike(List<bool> value) {
+    _isLike = value;
+    notifyListeners();
+  }
+
+  void setLikeByIndex(int index, bool isLike) {
+    _isLike[index] = isLike;
+    notifyListeners();
+  }
 }
