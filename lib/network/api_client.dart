@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../common/model/chart_response.dart';
-import '../modules/ptt/model/news_response.dart';
+import '../modules/news/model/news_response.dart';
 import '../modules/ptt/model/ptt_response.dart';
 import '../modules/trend/model/trend_response.dart';
 
