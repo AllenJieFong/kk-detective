@@ -4,13 +4,14 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 
 import '../common/model/chart_response.dart';
+import '../modules/news/model/news_response.dart';
 import '../modules/ptt/model/ptt_response.dart';
 import '../modules/trend/model/trend_response.dart';
 
 class DioClient {
   static DioClient instance = DioClient();
   String apiBaseUrl =
-      "https://dc929720-3cdf-451f-af65-f2c99d0713e9.mock.pstmn.io/";
+      "https://334d7eef-f64a-4a09-aae7-c83105d30d12.mock.pstmn.io/";
 
   Map<String, dynamic> get baseHeaders => {
         "token": "xxx",
@@ -53,6 +54,22 @@ class APIClient {
     } catch (e) {
       e as DioError;
       throw e.error;
+    }
+  }
+
+  Future<List<NewsResponse>> getKKNews() async {
+    try {
+      String path = "kknews";
+      final response = await dio.get(path);
+      final jsonData = json.decode(response.data);
+      if (jsonData["errCode"] != "200") {
+        throw Exception(jsonData["errMsg"]);
+      }
+      final data = jsonData["data"];
+      return List.generate(data.length, (i) => NewsResponse.fromJson(data[i]));
+    } catch (e) {
+      // e as DioError;
+      throw e.toString();
     }
   }
 

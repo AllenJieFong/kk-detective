@@ -1,10 +1,9 @@
 import 'package:detectivce_dashboard/common/app_shared_data.dart';
 import 'package:detectivce_dashboard/common/view/wrap_page.dart';
+import 'package:detectivce_dashboard/modules/news/view/news_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
-
-import 'modules/ptt/view/ptt_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppSharedData.instance),
       ],
       child: const MaterialApp(
-          title: 'KK Detective', home: WrapPage(contentPage: PTTPage())),
+          title: 'KK Detective', home: WrapPage(contentPage: NewsPage())),
     );
   }
 }
