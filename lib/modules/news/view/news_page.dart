@@ -1,10 +1,8 @@
+import 'package:detectivce_dashboard/common/view/ProviderWidget.dart';
 import 'package:detectivce_dashboard/modules/news/model/news_response.dart';
 import 'package:detectivce_dashboard/modules/news/view_model/news_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-import '../../../common/app_router.dart';
-import '../../../common/view/ProviderWidget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({Key? key}) : super(key: key);
@@ -18,20 +16,28 @@ class NewsPage extends StatelessWidget {
       },
       builder: (context, vm, child) {
         return SingleChildScrollView(
-            child: StaggeredGrid.count(
-          crossAxisCount: 4,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
-          children: List.generate(vm.newsList.length, (i) {
-            return getNewsItem(vm.newsList[i], context);
-          }),
-        ));
+          child: Column(
+            children: List.generate(
+              vm.newsList.length,
+              (i) {
+                return getNewsItem(vm.newsList[i], context);
+              },
+            ),
+          ),
+        );
       },
     );
   }
 
   Widget getNewsItem(NewsResponse data, BuildContext context) {
     return Card(
+      elevation: 1.0,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(16),
+        ),
+      ),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(16),
@@ -40,9 +46,15 @@ class NewsPage extends StatelessWidget {
             data.title ?? "",
             style: const TextStyle(fontSize: 20),
           ),
-          onTap: () {
-            Navigator.of(context)
-                .pushNamed(AppRouter.pttDetail, arguments: data);
+          onTap: () async {
+            if (!await launchUrl(
+              // Uri.parse(data.url ?? ""),
+              // TODO for demo
+              Uri.parse("http://www.google.com"),
+              mode: LaunchMode.platformDefault,
+            )) {
+              throw 'Could not launch ${data.url}';
+            }
           },
         ),
       ),

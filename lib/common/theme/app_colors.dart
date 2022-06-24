@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color bgColor = Color(0xFFe9e9e9);
+  static const Color bgColor = Color(0xFFE5E5E5);
   static const Color buttonColor = Color(0xFF0058c1);
   static const Color headerTableColor = Color(0xFF0058c1);
   static const Color headerRowColor = Color(0xFFdbe4ee);

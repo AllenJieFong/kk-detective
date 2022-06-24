@@ -1,3 +1,4 @@
+import 'package:detectivce_dashboard/common/theme/app_colors.dart';
 import 'package:detectivce_dashboard/common/view/ProviderWidget.dart';
 import 'package:detectivce_dashboard/common/view/common_ui.dart';
 import 'package:detectivce_dashboard/common/view/menu.dart';
@@ -28,7 +29,7 @@ class WrapPage extends StatelessWidget {
       vm: vm,
       builder: (context, vm, child) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.bgColor,
           body: Column(
             children: [
               titleBar,
