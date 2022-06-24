@@ -84,7 +84,7 @@ class NewsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(Icons.label, size: 60.0),
+                    const Icon(Icons.favorite_border, size: 60.0),
                     const SizedBox(height: 4),
                     Text(data.getDate(data.updateTime ?? 0),
                         style: const TextStyle(
