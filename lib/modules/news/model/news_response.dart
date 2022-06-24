@@ -17,6 +17,15 @@ class NewsResponse {
   bool? isFavorite;
   int? emotionType;
 
+  String getDate(int time) {
+    var year = DateTime.fromMillisecondsSinceEpoch(time * 1000).year;
+    var month = DateTime.fromMillisecondsSinceEpoch(time * 1000).month;
+    var day = DateTime.fromMillisecondsSinceEpoch(time * 1000).day;
+    var hour = DateTime.fromMillisecondsSinceEpoch(time * 1000).hour;
+    var minute = DateTime.fromMillisecondsSinceEpoch(time * 1000).minute;
+    return "$year/$month/$day - $hour:$minute";
+  }
+
   NewsResponse({this.title, this.content});
 
   NewsResponse.fromJson(Map<String, dynamic> json) {

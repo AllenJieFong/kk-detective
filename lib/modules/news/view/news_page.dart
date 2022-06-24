@@ -86,7 +86,7 @@ class NewsPage extends StatelessWidget {
                   children: [
                     const Icon(Icons.label, size: 60.0),
                     const SizedBox(height: 4),
-                    Text(getDate(data.updateTime ?? 0),
+                    Text(data.getDate(data.updateTime ?? 0),
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
@@ -101,7 +101,7 @@ class NewsPage extends StatelessWidget {
                     Text(data.content ?? "",
                         style: const TextStyle(fontSize: 20)),
                     const SizedBox(height: 8),
-                    Text("更新時間：" + getDate(data.updateTime ?? 0),
+                    Text("更新時間：" + data.getDate(data.updateTime ?? 0),
                         style: const TextStyle(fontSize: 20)),
                     const SizedBox(height: 8),
                     InkWell(
@@ -127,14 +127,5 @@ class NewsPage extends StatelessWidget {
             )),
       ),
     );
-  }
-
-  String getDate(int time) {
-    var year = DateTime.fromMillisecondsSinceEpoch(time * 1000).year;
-    var month = DateTime.fromMillisecondsSinceEpoch(time * 1000).month;
-    var day = DateTime.fromMillisecondsSinceEpoch(time * 1000).day;
-    var hour = DateTime.fromMillisecondsSinceEpoch(time * 1000).hour;
-    var minute = DateTime.fromMillisecondsSinceEpoch(time * 1000).minute;
-    return "$year/$month/$day - $hour:$minute";
   }
 }
