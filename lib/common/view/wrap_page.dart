@@ -45,8 +45,7 @@ class WrapPage extends StatelessWidget {
                           Expanded(
                             child: SingleChildScrollView(
                               child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
+                                  padding: const EdgeInsets.all(16),
                                   child: contentPage),
                             ),
                           )
