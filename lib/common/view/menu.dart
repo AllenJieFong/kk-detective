@@ -2,8 +2,6 @@ import 'package:detectivce_dashboard/common/app_router.dart';
 import 'package:detectivce_dashboard/common/app_shared_data.dart';
 import 'package:detectivce_dashboard/common/theme/app_colors.dart';
 import 'package:detectivce_dashboard/common/view/common_ui.dart';
-import 'package:detectivce_dashboard/common/view/wrap_page.dart';
-import 'package:detectivce_dashboard/modules/ptt/view/ptt_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

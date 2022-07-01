@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 
 import '../common/model/chart_response.dart';
 import '../modules/news/model/news_response.dart';
-import '../modules/ptt/model/ptt_response.dart';
 import '../modules/trend/model/trend_response.dart';
 
 class DioClient {
@@ -38,24 +37,6 @@ class DioClient {
 class APIClient {
   static APIClient instance = APIClient();
   Dio dio = DioClient.instance.init();
-
-  Future<List<PTTResponse>> getPTT() async {
-    try {
-      String path = "ptt";
-      final response = await dio.get(
-        path,
-      );
-      final jsonData = json.decode(response.data);
-      if (jsonData["errCode"] != "200") {
-        throw Exception(jsonData["errMsg"]);
-      }
-      final data = jsonData["data"];
-      return List.generate(data.length, (i) => PTTResponse.fromJson(data[i]));
-    } catch (e) {
-      e as DioError;
-      throw e.error;
-    }
-  }
 
   Future<List<NewsResponse>> getKKNews() async {
     try {

@@ -8,15 +8,14 @@ import 'package:flutter/material.dart';
 class WrapPage extends StatelessWidget {
   final Widget contentPage;
   final menuItemSize = 3;
-  const WrapPage({required this.contentPage});
+  WrapPage({Key? key, required this.contentPage}) : super(key: key);
 
-  // final WrapPageViewModel vm = WrapPageViewModel();
+  final WrapPageViewModel vm = WrapPageViewModel();
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     bool isSmallScreen = screenSize.width < 720;
-    var vm = WrapPageViewModel();
 
     TitleBar titleBar = TitleBar(
       isSmallScreen: isSmallScreen,
