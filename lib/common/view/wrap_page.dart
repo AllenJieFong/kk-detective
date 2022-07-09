@@ -40,17 +40,9 @@ class WrapPage extends StatelessWidget {
                         ? Container()
                         : Menu(isSmallScreen: isSmallScreen),
                     Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: contentPage),
-                            ),
-                          )
-                        ],
-                      ),
+                      child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: contentPage),
                     ),
                   ],
                 ),

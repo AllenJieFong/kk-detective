@@ -1,6 +1,6 @@
 import 'package:detectivce_dashboard/common/app_shared_data.dart';
 import 'package:detectivce_dashboard/common/view/wrap_page.dart';
-import 'package:detectivce_dashboard/modules/news/view/news_page.dart';
+import 'package:detectivce_dashboard/modules/opinion/view/opinion_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           title: 'KK Detective',
-          home: WrapPage(contentPage: const NewsPage()),
+          home: WrapPage(contentPage: OpinionPage()),
           builder: EasyLoading.init()),
     );
   }

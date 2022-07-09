@@ -25,7 +25,7 @@ class TrendViewModel with ChangeNotifier {
     try {
       searchResponse = await APIClient.instance.getSearch();
     } catch (e) {
-      log("@@error: $e");
+      log("error: $e");
     }
   }
 
@@ -33,7 +33,7 @@ class TrendViewModel with ChangeNotifier {
     try {
       trendList = await APIClient.instance.getTrend();
     } catch (e) {
-      log("@@error: $e");
+      log("error: $e");
     }
   }
 }

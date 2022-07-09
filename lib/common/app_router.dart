@@ -1,10 +1,9 @@
 import 'package:detectivce_dashboard/common/view/wrap_page.dart';
 import 'package:detectivce_dashboard/modules/favorite/view/favorite_page.dart';
+import 'package:detectivce_dashboard/modules/opinion/view/opinion_page.dart';
 import 'package:detectivce_dashboard/modules/search/view/search_page.dart';
 import 'package:detectivce_dashboard/modules/trend/view/trend_page.dart';
 import 'package:flutter/material.dart';
-
-import '../modules/news/view/news_page.dart';
 
 class AppRouter {
   static AppRouter instance = AppRouter();
@@ -19,7 +18,7 @@ class AppRouter {
     WrapPage page;
     switch (pageKey) {
       case home:
-        page = WrapPage(contentPage: const NewsPage());
+        page = WrapPage(contentPage: OpinionPage());
         break;
       case search:
         page = WrapPage(contentPage: SearchPage());
@@ -31,7 +30,7 @@ class AppRouter {
         page = WrapPage(contentPage: const TrendPage());
         break;
       default:
-        page = WrapPage(contentPage: const NewsPage());
+        page = WrapPage(contentPage: OpinionPage());
     }
 
     Navigator.push(

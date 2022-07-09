@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:detectivce_dashboard/modules/opinion/model/opinion_response.dart';
 import 'package:dio/dio.dart';
 
 import '../common/model/chart_response.dart';
-import '../modules/news/model/news_response.dart';
 import '../modules/trend/model/trend_response.dart';
 
 class DioClient {
   static DioClient instance = DioClient();
-  String apiBaseUrl =
-      "https://334d7eef-f64a-4a09-aae7-c83105d30d12.mock.pstmn.io/";
+  String apiBaseUrl = "https://detective-c8bd7.loyi.dev/";
 
   Map<String, dynamic> get baseHeaders => {
-        "token": "xxx",
+        // "token": "xxx",
       };
 
   Dio init() {
@@ -37,19 +36,22 @@ class DioClient {
 class APIClient {
   static APIClient instance = APIClient();
   Dio dio = DioClient.instance.init();
+  static const int apiLimit = 20;
 
-  Future<List<NewsResponse>> getKKNews() async {
+  Future<OpinonResponse> getKKOpinion(
+      {int offset = 0, int limit = apiLimit}) async {
     try {
-      String path = "kknews";
-      final response = await dio.get(path);
-      final jsonData = json.decode(response.data);
+      String path = "opinion/latest";
+      final response = await dio
+          .get(path, queryParameters: {"offset": offset, "limit": limit});
+      final jsonData = response.data;
       if (jsonData["errCode"] != "200") {
         throw Exception(jsonData["errMsg"]);
       }
-      final data = jsonData["data"];
-      return List.generate(data.length, (i) => NewsResponse.fromJson(data[i]));
+      final responseData = jsonData["data"];
+      OpinonResponse res = OpinonResponse.fromJson(responseData);
+      return OpinonResponse.fromJson(responseData);
     } catch (e) {
-      // e as DioError;
       throw e.toString();
     }
   }
