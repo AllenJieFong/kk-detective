@@ -5,6 +5,8 @@ import 'package:detectivce_dashboard/modules/opinion/model/opinion_response.dart
 import 'package:dio/dio.dart';
 
 import '../common/model/chart_response.dart';
+import '../common/model/related_queries_response.dart';
+import '../common/model/transaction_response_v2.dart';
 import '../modules/trend/model/trend_response.dart';
 
 class DioClient {
@@ -109,6 +111,33 @@ class APIClient {
     } catch (e) {
       e as DioError;
       throw e.error;
+    }
+  }
+
+  Future<TransactionResponseV2> getTransactionV2() async {
+    try {
+      String path = "trends/interestOverTime/";
+      final response = await dio.get(
+        path,
+      );
+      final jsonData = response.data;
+      final responseData = jsonData["data"];
+      return TransactionResponseV2.fromJson(responseData);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<RelatedQueriesResponse> getRelatedQuery() async {
+    try {
+      String path = "trends/relatedQueries/";
+      final response = await dio.get(
+        path,
+      );
+      final jsonData = response.data;
+      return RelatedQueriesResponse.fromJson(jsonData);
+    } catch (e) {
+      throw e.toString();
     }
   }
 
