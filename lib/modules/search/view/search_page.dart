@@ -1,28 +1,48 @@
 import 'package:detectivce_dashboard/common/theme/app_colors.dart';
-import 'package:detectivce_dashboard/common/util/time_util.dart';
 import 'package:detectivce_dashboard/common/view/ProviderWidget.dart';
 import 'package:detectivce_dashboard/common/view/common_ui.dart';
-import 'package:detectivce_dashboard/modules/opinion/model/opinion_model.dart';
+import 'package:detectivce_dashboard/common/view/item_news.dart';
 import 'package:detectivce_dashboard/modules/search/view_model/search_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({Key? key}) : super(key: key);
-  SearchViewModel searchViewModel = SearchViewModel();
+  SearchViewModel vm = SearchViewModel();
 
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<SearchViewModel>(
-      vm: searchViewModel,
+      vm: vm,
       init: (vm) async {},
       builder: (context, vm, child) {
         return Column(
-          children: [getSearchUI()],
+          children: [
+            getSearchUI(),
+            const SizedBox(height: 16),
+            Expanded(
+              child: SingleChildScrollView(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: vm.opinonList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ItemNews.getNewsItem(
+                        vm.opinonList[index], context, onClickFavorite);
+                  },
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
+  }
+
+  Future<void> onClickFavorite(
+      String sourceType, String id, bool isFavorite) async {
+    await EasyLoading.show();
+    await vm.changeFavorite(sourceType, id, isFavorite);
+    await EasyLoading.dismiss();
   }
 
   Widget getSearchUI() {
@@ -58,6 +78,9 @@ class SearchPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
+            onChanged: (text) {
+              vm.keyword = text;
+            },
           ),
         ),
         const SizedBox(width: 16),
@@ -72,7 +95,7 @@ class SearchPage extends StatelessWidget {
           ),
           onPressed: () async {
             await EasyLoading.show();
-            // TODO call search API
+            await vm.getSearch();
             await EasyLoading.dismiss();
           },
         )

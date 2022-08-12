@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:detectivce_dashboard/modules/favorite/model/favorite_response.dart';
 import 'package:detectivce_dashboard/modules/opinion/model/opinion_response.dart';
 import 'package:dio/dio.dart';
 
@@ -45,11 +46,10 @@ class APIClient {
       final response = await dio
           .get(path, queryParameters: {"offset": offset, "limit": limit});
       final jsonData = response.data;
-      if (jsonData["errCode"] != "200") {
-        throw Exception(jsonData["errMsg"]);
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
       }
       final responseData = jsonData["data"];
-      OpinonResponse res = OpinonResponse.fromJson(responseData);
       return OpinonResponse.fromJson(responseData);
     } catch (e) {
       throw e.toString();
@@ -63,8 +63,8 @@ class APIClient {
         path,
       );
       final jsonData = json.decode(response.data);
-      if (jsonData["errCode"] != "200") {
-        throw Exception(jsonData["errMsg"]);
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
       }
       final data = jsonData["data"];
       return List.generate(data.length, (i) => TrendResponse.fromJson(data[i]));
@@ -81,8 +81,8 @@ class APIClient {
         path,
       );
       final jsonData = json.decode(response.data);
-      if (jsonData["errCode"] != "200") {
-        throw Exception(jsonData["errMsg"]);
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
       }
       final data = jsonData["data"];
       final result = ChartResponse.fromJson(data);
@@ -100,8 +100,8 @@ class APIClient {
         path,
       );
       final jsonData = json.decode(response.data);
-      if (jsonData["errCode"] != "200") {
-        throw Exception(jsonData["errMsg"]);
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
       }
       final data = jsonData["data"];
       final result = ChartResponse.fromJson(data);
@@ -112,34 +112,64 @@ class APIClient {
     }
   }
 
-  Future<ChartResponse> getSearch() async {
+  Future<OpinonResponse> getSearch(String keyword) async {
     try {
-      String path = "search";
-      final response = await dio.get(
-        path,
-      );
-      final jsonData = json.decode(response.data);
-
-      final data = jsonData["data"];
-      final result = ChartResponse.fromJson(data);
-      return result;
+      String path = "search/all/";
+      final response = await dio.get(path, queryParameters: {"q": keyword});
+      final jsonData = response.data;
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
+      }
+      final responseData = jsonData["data"];
+      return OpinonResponse.fromJson(responseData);
     } catch (e) {
       e as DioError;
       throw e.error;
     }
   }
 
-  Future<ChartResponse> getCommentPie() async {
+  Future<FavoriteResponse> getFavorite() async {
     try {
-      String path = "comment_pie";
-      final response = await dio.get(
-        path,
-      );
-      final jsonData = json.decode(response.data);
+      String path = "favourite/show_all/";
+      final response = await dio.get(path);
+      final jsonData = response.data;
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
+      }
+      final responseData = jsonData["data"];
+      return FavoriteResponse.fromJson(responseData);
+    } catch (e) {
+      e as DioError;
+      throw e.error;
+    }
+  }
 
-      final data = jsonData["data"];
-      final result = ChartResponse.fromJson(data);
-      return result;
+  Future<bool> addFavorite(String sourceType, String id) async {
+    try {
+      String path = "favourite/add/";
+      final response = await dio
+          .get(path, queryParameters: {"table": sourceType, "index": id});
+      final jsonData = response.data;
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
+      }
+      return true;
+    } catch (e) {
+      e as DioError;
+      throw e.error;
+    }
+  }
+
+  Future<bool> removeFavorite(String sourceType, String id) async {
+    try {
+      String path = "favourite/remove/";
+      final response = await dio
+          .get(path, queryParameters: {"table": sourceType, "index": id});
+      final jsonData = response.data;
+      if (jsonData["status"] != "success") {
+        throw Exception(jsonData["reason"]);
+      }
+      return true;
     } catch (e) {
       e as DioError;
       throw e.error;

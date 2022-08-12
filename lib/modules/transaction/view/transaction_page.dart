@@ -15,7 +15,7 @@ class TransactionPage extends StatelessWidget {
       vm: TransactionViewModel(),
       init: (vm) async {
         Future.wait(
-            [vm.getTransaction(), vm.getTransactionRate(), vm.getCommonPie()]);
+            [vm.getTransaction(), vm.getTransactionRate()]);
       },
       builder: (context, vm, child) {
         return Container(

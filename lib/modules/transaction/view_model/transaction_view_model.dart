@@ -42,12 +42,4 @@ class TransactionViewModel with ChangeNotifier {
     _commonPieResponse = value;
     notifyListeners();
   }
-
-  Future getCommonPie() async {
-    try {
-      commonPieResponse = await APIClient.instance.getCommentPie();
-    } catch (e) {
-      log("error: $e");
-    }
-  }
 }

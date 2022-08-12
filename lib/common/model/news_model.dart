@@ -1,4 +1,4 @@
-class OpinionModel {
+class NewsModel {
   String? sourceType;
   int? id;
   String? title;
@@ -8,7 +8,7 @@ class OpinionModel {
   bool? isFavorite;
   int? emotionType;
 
-  OpinionModel(
+  NewsModel(
       {this.sourceType,
       this.id,
       this.title,
@@ -18,7 +18,7 @@ class OpinionModel {
       this.isFavorite,
       this.emotionType});
 
-  OpinionModel.fromJson(Map<String, dynamic> json) {
+  NewsModel.fromJson(Map<String, dynamic> json) {
     sourceType = json['source_type'];
     id = json['id'];
     title = json['title'];

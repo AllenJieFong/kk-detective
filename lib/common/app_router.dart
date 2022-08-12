@@ -24,7 +24,7 @@ class AppRouter {
         page = WrapPage(contentPage: SearchPage());
         break;
       case favorite:
-        page = WrapPage(contentPage: const FavoritePage());
+        page = WrapPage(contentPage: FavoritePage());
         break;
       case trend:
         page = WrapPage(contentPage: const TrendPage());

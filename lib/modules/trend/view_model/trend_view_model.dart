@@ -23,7 +23,7 @@ class TrendViewModel with ChangeNotifier {
 
   Future getSearch() async {
     try {
-      searchResponse = await APIClient.instance.getSearch();
+      // searchResponse = await APIClient.instance.getSearch();
     } catch (e) {
       log("error: $e");
     }

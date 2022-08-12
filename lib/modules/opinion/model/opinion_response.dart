@@ -1,17 +1,17 @@
-import 'package:detectivce_dashboard/modules/opinion/model/opinion_model.dart';
+import 'package:detectivce_dashboard/common/model/news_model.dart';
 
 class OpinonResponse {
   int? totalCount;
-  List<OpinionModel>? news;
+  List<NewsModel>? news;
 
   OpinonResponse({this.totalCount, this.news});
 
   OpinonResponse.fromJson(Map<String, dynamic> json) {
-    totalCount = json['total_count'];
+    totalCount = json['total_count'] ?? 0;
     if (json['news'] != null) {
-      news = <OpinionModel>[];
+      news = <NewsModel>[];
       json['news'].forEach((v) {
-        news!.add(OpinionModel.fromJson(v));
+        news!.add(NewsModel.fromJson(v));
       });
     }
   }
