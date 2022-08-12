@@ -31,7 +31,7 @@ class WrapPage extends StatelessWidget {
           backgroundColor: AppColors.bgColor,
           body: Column(
             children: [
-              titleBar,
+              SafeArea(child: titleBar),
               Expanded(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
