@@ -67,8 +67,6 @@ class ItemNews {
                   data.title ?? "",
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                 ),
                 const SizedBox(height: 4),
                 Text("更新時間：" + TimeUtil.getDate(data.updateTime ?? 0),
