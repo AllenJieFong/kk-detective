@@ -17,7 +17,6 @@ class TrendPage extends StatelessWidget {
       vm: TrendViewModel(),
       init: (vm) {
         vm.getInterestOverTimeh();
-        vm.getTrend();
         vm.getRelatedQuery();
       },
       builder: (context, vm, child) {

@@ -95,10 +95,6 @@ class APIClient {
       String path = "favourite/add/";
       final response = await dio
           .get(path, queryParameters: {"table": sourceType, "index": id});
-      final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
       return true;
     } catch (e) {
       e as DioError;
@@ -111,10 +107,6 @@ class APIClient {
       String path = "favourite/remove/";
       final response = await dio
           .get(path, queryParameters: {"table": sourceType, "index": id});
-      final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
       return true;
     } catch (e) {
       e as DioError;
@@ -136,24 +128,6 @@ class APIClient {
       return TransactionResponseV2.fromJson(responseData);
     } catch (e) {
       throw e.toString();
-    }
-  }
-
-  Future<List<TrendResponse>> getTrend() async {
-    try {
-      String path = "trend";
-      final response = await dio.get(
-        path,
-      );
-      final jsonData = json.decode(response.data);
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
-      final data = jsonData["data"];
-      return List.generate(data.length, (i) => TrendResponse.fromJson(data[i]));
-    } catch (e) {
-      e as DioError;
-      throw e.error;
     }
   }
 

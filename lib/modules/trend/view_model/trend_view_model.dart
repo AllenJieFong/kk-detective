@@ -37,14 +37,6 @@ class TrendViewModel with ChangeNotifier {
     }
   }
 
-  Future getTrend() async {
-    try {
-      trendList = await APIClient.instance.getTrend();
-    } catch (e) {
-      log("error: $e");
-    }
-  }
-
   Future getRelatedQuery() async {
     try {
       relatedQueriesResponse = await APIClient.instance.getRelatedQuery();
