@@ -15,9 +15,9 @@ class RelatedQueriesResponse {
     }
 
     if (json['rising'] != null) {
-      top = <QueryInfoModel>[];
+      rising = <QueryInfoModel>[];
       json['rising'].forEach((v) {
-        top!.add(QueryInfoModel.fromJson(v));
+        rising!.add(QueryInfoModel.fromJson(v));
       });
     }
   }

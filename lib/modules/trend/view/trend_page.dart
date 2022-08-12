@@ -6,7 +6,6 @@ import '../../../common/theme/app_colors.dart';
 import '../../../common/view/ProviderWidget.dart';
 import '../../../common/view/chart_ui.dart';
 import '../../../common/view/common_ui.dart';
-import '../model/trend_response.dart';
 import '../view_model/trend_view_model.dart';
 
 class TrendPage extends StatelessWidget {
@@ -40,9 +39,8 @@ class TrendPage extends StatelessWidget {
 
         List<Widget> uiList = [];
         uiList.add(chartItem);
-        uiList.addAll(relatedQueryRisingList);
         uiList.addAll(relatedQueryTopList);
-        print("relatedQueryRisingList $relatedQueryRisingList");
+        uiList.addAll(relatedQueryRisingList);
         return Container(
           color: AppColors.bgColor,
           child: SingleChildScrollView(
