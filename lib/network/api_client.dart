@@ -135,7 +135,8 @@ class APIClient {
         path,
       );
       final jsonData = response.data;
-      return RelatedQueriesResponse.fromJson(jsonData);
+      final responseData = jsonData["data"];
+      return RelatedQueriesResponse.fromJson(responseData);
     } catch (e) {
       throw e.toString();
     }

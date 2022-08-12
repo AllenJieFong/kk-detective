@@ -8,16 +8,16 @@ import '../../../common/model/transaction_response_v2.dart';
 import '../../../network/api_client.dart';
 
 class TransactionViewModel with ChangeNotifier {
-  ChartResponse? _transactionResponse;
-  ChartResponse? get transactionResponse => _transactionResponse;
-  set transactionResponse(ChartResponse? value) {
+  TransactionResponseV2? _transactionResponse;
+  TransactionResponseV2? get transactionResponse => _transactionResponse;
+  set transactionResponse(TransactionResponseV2? value) {
     _transactionResponse = value;
     notifyListeners();
   }
 
   Future getTransaction() async {
     try {
-      transactionResponse = await APIClient.instance.getTransaction();
+      transactionResponse = await APIClient.instance.getTransactionV2();
     } catch (e) {
       log("error: $e");
     }

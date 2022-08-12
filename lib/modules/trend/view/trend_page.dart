@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../common/app_const.dart';
+import '../../../common/model/query_info_model.dart';
 import '../../../common/theme/app_colors.dart';
 import '../../../common/view/ProviderWidget.dart';
 import '../../../common/view/chart_ui.dart';
@@ -18,6 +19,7 @@ class TrendPage extends StatelessWidget {
       init: (vm) {
         vm.getSearch();
         vm.getTrend();
+        vm.getRelatedQuery();
       },
       builder: (context, vm, child) {
         var chartItem = ChartUI.instance.getLineAreaChartItem(
@@ -26,15 +28,21 @@ class TrendPage extends StatelessWidget {
           chartYType: ChartYType.count,
         );
 
-        var trendList = List.generate(vm.trendList.length, (i) {
-          TrendResponse trendResponse = vm.trendList[i];
-          return getTrendItem(trendResponse);
+        var relatedQueryTopList = List.generate(vm.relatedQueriesResponse?.top?.length ?? 0, (i) {
+          QueryInfoModel? topQuery = vm.relatedQueriesResponse?.top![i];
+          return getRelatedQueryTopItem(topQuery!);
+        });
+
+        var relatedQueryRisingList = List.generate(vm.relatedQueriesResponse?.rising?.length ?? 0, (i) {
+          QueryInfoModel? risingQuery = vm.relatedQueriesResponse?.rising![i];
+          return getRelatedQueryRisingItem(risingQuery!);
         });
 
         List<Widget> uiList = [];
         uiList.add(chartItem);
-        uiList.addAll(trendList);
-
+        uiList.addAll(relatedQueryRisingList);
+        uiList.addAll(relatedQueryTopList);
+        print("relatedQueryRisingList $relatedQueryRisingList");
         return Container(
           color: AppColors.bgColor,
           child: SingleChildScrollView(
@@ -45,12 +53,9 @@ class TrendPage extends StatelessWidget {
     );
   }
 
-  Widget getTrendItem(TrendResponse data) {
-    var isHot = data.formattedValue == "飆升";
+  Widget getRelatedQueryTopItem(QueryInfoModel data) {
     String title = data.query ?? "";
-    if (isHot) {
-      title += "[飆升]";
-    }
+      title += " [Top]";
     return Card(
       child: Container(
         width: double.infinity,
@@ -60,10 +65,34 @@ class TrendPage extends StatelessWidget {
           children: [
             CommonUI.commonText(title,
                 size: 20,
-                color: isHot ? AppColors.chartColor1 : AppColors.buttonColor),
+                color: AppColors.chartColor1),
             const SizedBox(width: 10),
             CommonUI.commonText(
-              data.value.toString(),
+              data.rankingValue.toString(),
+              size: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getRelatedQueryRisingItem(QueryInfoModel data) {
+    String title = data.query ?? "";
+    title += " [Rising]";
+    return Card(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
+        child: Row(
+          children: [
+            CommonUI.commonText(title,
+                size: 20,
+                color: AppColors.chartColor1),
+            const SizedBox(width: 10),
+            CommonUI.commonText(
+              data.rankingValue.toString(),
               size: 20,
             ),
           ],

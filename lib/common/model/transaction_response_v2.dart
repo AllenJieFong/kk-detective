@@ -31,6 +31,4 @@ class TransactionResponseV2 {
     }
     return data;
   }
-
-
 }

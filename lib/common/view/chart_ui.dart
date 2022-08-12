@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../app_const.dart';
-import '../model/chart_response.dart';
+import '../model/transaction_model.dart';
+import '../model/transaction_response_v2.dart';
 import '../theme/app_colors.dart';
 import 'common_ui.dart';
 
@@ -13,11 +14,11 @@ class ChartUI {
       enable: true,
       builder: (dynamic data, dynamic point, dynamic series, int pointIndex,
           int seriesIndex) {
-        DailyInfo dailyInfo = data as DailyInfo;
+        TransactionModel dailyInfo = data as TransactionModel;
         return Container(
           padding: const EdgeInsets.all(10),
           child: CommonUI.commonText(
-              'Date: ${dailyInfo.dateTime}\nValue: ${dailyInfo.transaction ?? dailyInfo.percentage}',
+              'Date: ${dailyInfo.date}\nValue: ${dailyInfo.transaction ?? dailyInfo.transaction}',
               color: Colors.white),
         );
       });
@@ -26,11 +27,11 @@ class ChartUI {
       enable: true,
       builder: (dynamic data, dynamic point, dynamic series, int pointIndex,
           int seriesIndex) {
-        DailyInfo dailyInfo = data as DailyInfo;
+        TransactionModel dailyInfo = data as TransactionModel;
         return Container(
           padding: const EdgeInsets.all(10),
           child: CommonUI.commonText(
-              "${dailyInfo.dateTime}\n 數量: ${dailyInfo.transaction} 比例: ${dailyInfo.percentage}",
+              "${dailyInfo.date}\n 數量: ${dailyInfo.transaction} 比例: ${dailyInfo.transaction}",
               color: Colors.white),
         );
       });
@@ -50,10 +51,10 @@ class ChartUI {
 
   Widget getLineAreaChartItem({
     required Color chartColor,
-    required ChartResponse? chartResponse,
+    required TransactionResponseV2? chartResponse,
     required ChartYType chartYType,
   }) {
-    List<DailyInfo> chartData = chartResponse?.dailyInfo ?? [];
+    List<TransactionModel> chartData = chartResponse?.dailyIndo ?? [];
     return Container(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       padding: const EdgeInsets.all(8),
@@ -82,14 +83,14 @@ class ChartUI {
               axisLine: const AxisLine(width: 0),
             ),
             tooltipBehavior: _lineTooltipBehavior,
-            series: <SplineAreaSeries<DailyInfo, String>>[
-              SplineAreaSeries<DailyInfo, String>(
+            series: <SplineAreaSeries<TransactionModel, String>>[
+              SplineAreaSeries<TransactionModel, String>(
                 dataSource: chartData,
-                xValueMapper: (DailyInfo data, _) => data.dateTime,
-                yValueMapper: (DailyInfo data, _) =>
-                    chartYType == ChartYType.count
-                        ? data.transaction
-                        : data.percentage,
+                xValueMapper: (TransactionModel data, _) => data.date,
+                yValueMapper: (TransactionModel data, _) =>
+                chartYType == ChartYType.count
+                    ? data.transaction
+                    : data.transaction,
                 gradient: _linearGradient,
                 markerSettings: const MarkerSettings(
                   isVisible: true,
@@ -108,9 +109,9 @@ class ChartUI {
 
   Widget getPieChartItem(
       {required Color chartColor,
-      required ChartResponse? chartResponse,
-      required ChartYType chartYType}) {
-    List<DailyInfo> chartData = chartResponse?.dailyInfo ?? [];
+        required TransactionResponseV2? chartResponse,
+        required ChartYType chartYType}) {
+    List<TransactionModel> chartData = chartResponse?.dailyIndo ?? [];
     return Container(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       padding: const EdgeInsets.all(8),
@@ -130,10 +131,10 @@ class ChartUI {
                 isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
             tooltipBehavior: _pieTooltipBehavior,
             series: <CircularSeries>[
-              PieSeries<DailyInfo, String>(
+              PieSeries<TransactionModel, String>(
                 dataSource: chartData,
-                xValueMapper: (DailyInfo data, _) => data.dateTime,
-                yValueMapper: (DailyInfo data, _) => data.percentage,
+                xValueMapper: (TransactionModel data, _) => data.date,
+                yValueMapper: (TransactionModel data, _) => data.transaction,
                 dataLabelSettings: const DataLabelSettings(isVisible: true),
                 enableTooltip: true,
               )
@@ -146,9 +147,9 @@ class ChartUI {
 
   Widget getBarChartItem(
       {required Color chartColor,
-      required ChartResponse? chartResponse,
-      required ChartYType chartYType}) {
-    List<DailyInfo> chartData = chartResponse?.dailyInfo ?? [];
+        required TransactionResponseV2? chartResponse,
+        required ChartYType chartYType}) {
+    List<TransactionModel> chartData = chartResponse?.dailyIndo ?? [];
     return Container(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       padding: const EdgeInsets.all(8),
@@ -174,10 +175,10 @@ class ChartUI {
                 isVisible: true, overflowMode: LegendItemOverflowMode.wrap),
             tooltipBehavior: _pieTooltipBehavior,
             series: <ChartSeries>[
-              BarSeries<DailyInfo, String>(
+              BarSeries<TransactionModel, String>(
                 dataSource: chartData,
-                xValueMapper: (DailyInfo data, _) => data.dateTime,
-                yValueMapper: (DailyInfo data, _) => data.percentage,
+                xValueMapper: (TransactionModel data, _) => data.date,
+                yValueMapper: (TransactionModel data, _) => data.transaction,
                 dataLabelSettings: const DataLabelSettings(isVisible: true),
                 enableTooltip: true,
               )
