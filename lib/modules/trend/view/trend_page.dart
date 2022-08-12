@@ -16,7 +16,7 @@ class TrendPage extends StatelessWidget {
     return ProviderWidget<TrendViewModel>(
       vm: TrendViewModel(),
       init: (vm) {
-        vm.getSearch();
+        vm.getInterestOverTimeh();
         vm.getTrend();
         vm.getRelatedQuery();
       },
@@ -27,12 +27,14 @@ class TrendPage extends StatelessWidget {
           chartYType: ChartYType.count,
         );
 
-        var relatedQueryTopList = List.generate(vm.relatedQueriesResponse?.top?.length ?? 0, (i) {
+        var relatedQueryTopList =
+            List.generate(vm.relatedQueriesResponse?.top?.length ?? 0, (i) {
           QueryInfoModel? topQuery = vm.relatedQueriesResponse?.top![i];
           return getRelatedQueryTopItem(topQuery!);
         });
 
-        var relatedQueryRisingList = List.generate(vm.relatedQueriesResponse?.rising?.length ?? 0, (i) {
+        var relatedQueryRisingList =
+            List.generate(vm.relatedQueriesResponse?.rising?.length ?? 0, (i) {
           QueryInfoModel? risingQuery = vm.relatedQueriesResponse?.rising![i];
           return getRelatedQueryRisingItem(risingQuery!);
         });
@@ -53,7 +55,7 @@ class TrendPage extends StatelessWidget {
 
   Widget getRelatedQueryTopItem(QueryInfoModel data) {
     String title = data.query ?? "";
-      title += " [Top]";
+    title += " [Top]";
     return Card(
       child: Container(
         width: double.infinity,
@@ -61,9 +63,7 @@ class TrendPage extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         child: Row(
           children: [
-            CommonUI.commonText(title,
-                size: 20,
-                color: AppColors.chartColor1),
+            CommonUI.commonText(title, size: 20, color: AppColors.chartColor1),
             const SizedBox(width: 10),
             CommonUI.commonText(
               data.rankingValue.toString(),
@@ -85,9 +85,7 @@ class TrendPage extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         child: Row(
           children: [
-            CommonUI.commonText(title,
-                size: 20,
-                color: AppColors.chartColor1),
+            CommonUI.commonText(title, size: 20, color: AppColors.chartColor1),
             const SizedBox(width: 10),
             CommonUI.commonText(
               data.rankingValue.toString(),

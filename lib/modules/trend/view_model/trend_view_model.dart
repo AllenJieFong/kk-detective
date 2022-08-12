@@ -25,13 +25,13 @@ class TrendViewModel with ChangeNotifier {
   RelatedQueriesResponse? _relatedQueriesResponse;
   RelatedQueriesResponse? get relatedQueriesResponse => _relatedQueriesResponse;
   set relatedQueriesResponse(RelatedQueriesResponse? value) {
-    _relatedQueriesResponse= value;
+    _relatedQueriesResponse = value;
     notifyListeners();
   }
 
-  Future getSearch() async {
+  Future getInterestOverTimeh() async {
     try {
-      searchResponse = await APIClient.instance.getTransactionV2();
+      searchResponse = await APIClient.instance.getInterestOverTime();
     } catch (e) {
       log("error: $e");
     }
