@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:detectivce_dashboard/modules/favorite/model/favorite_response.dart';
 import 'package:detectivce_dashboard/modules/opinion/model/opinion_response.dart';
 import 'package:dio/dio.dart';
 
 import '../common/model/chart_response.dart';
+import '../common/model/related_queries_response.dart';
+import '../common/model/transaction_response_v2.dart';
 import '../modules/trend/model/trend_response.dart';
 
 class DioClient {
@@ -46,10 +47,11 @@ class APIClient {
       final response = await dio
           .get(path, queryParameters: {"offset": offset, "limit": limit});
       final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
+      if (jsonData["errCode"] != "200") {
+        throw Exception(jsonData["errMsg"]);
       }
       final responseData = jsonData["data"];
+      OpinonResponse res = OpinonResponse.fromJson(responseData);
       return OpinonResponse.fromJson(responseData);
     } catch (e) {
       throw e.toString();
@@ -63,8 +65,8 @@ class APIClient {
         path,
       );
       final jsonData = json.decode(response.data);
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
+      if (jsonData["errCode"] != "200") {
+        throw Exception(jsonData["errMsg"]);
       }
       final data = jsonData["data"];
       return List.generate(data.length, (i) => TrendResponse.fromJson(data[i]));
@@ -81,8 +83,8 @@ class APIClient {
         path,
       );
       final jsonData = json.decode(response.data);
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
+      if (jsonData["errCode"] != "200") {
+        throw Exception(jsonData["errMsg"]);
       }
       final data = jsonData["data"];
       final result = ChartResponse.fromJson(data);
@@ -100,8 +102,8 @@ class APIClient {
         path,
       );
       final jsonData = json.decode(response.data);
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
+      if (jsonData["errCode"] != "200") {
+        throw Exception(jsonData["errMsg"]);
       }
       final data = jsonData["data"];
       final result = ChartResponse.fromJson(data);
@@ -112,64 +114,62 @@ class APIClient {
     }
   }
 
-  Future<OpinonResponse> getSearch(String keyword) async {
+  Future<TransactionResponseV2> getTransactionV2() async {
     try {
-      String path = "search/all/";
-      final response = await dio.get(path, queryParameters: {"q": keyword});
+      String path = "trends/interestOverTime/";
+      final response = await dio.get(
+        path,
+      );
       final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
       final responseData = jsonData["data"];
-      return OpinonResponse.fromJson(responseData);
+      return TransactionResponseV2.fromJson(responseData);
     } catch (e) {
-      e as DioError;
-      throw e.error;
+      throw e.toString();
     }
   }
 
-  Future<FavoriteResponse> getFavorite() async {
+  Future<RelatedQueriesResponse> getRelatedQuery() async {
     try {
-      String path = "favourite/show_all/";
-      final response = await dio.get(path);
+      String path = "trends/relatedQueries/";
+      final response = await dio.get(
+        path,
+      );
       final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
       final responseData = jsonData["data"];
-      return FavoriteResponse.fromJson(responseData);
+      return RelatedQueriesResponse.fromJson(responseData);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<ChartResponse> getSearch() async {
+    try {
+      String path = "search";
+      final response = await dio.get(
+        path,
+      );
+      final jsonData = json.decode(response.data);
+
+      final data = jsonData["data"];
+      final result = ChartResponse.fromJson(data);
+      return result;
     } catch (e) {
       e as DioError;
       throw e.error;
     }
   }
 
-  Future<bool> addFavorite(String sourceType, String id) async {
+  Future<ChartResponse> getCommentPie() async {
     try {
-      String path = "favourite/add/";
-      final response = await dio
-          .get(path, queryParameters: {"table": sourceType, "index": id});
-      final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
-      return true;
-    } catch (e) {
-      e as DioError;
-      throw e.error;
-    }
-  }
+      String path = "comment_pie";
+      final response = await dio.get(
+        path,
+      );
+      final jsonData = json.decode(response.data);
 
-  Future<bool> removeFavorite(String sourceType, String id) async {
-    try {
-      String path = "favourite/remove/";
-      final response = await dio
-          .get(path, queryParameters: {"table": sourceType, "index": id});
-      final jsonData = response.data;
-      if (jsonData["status"] != "success") {
-        throw Exception(jsonData["reason"]);
-      }
-      return true;
+      final data = jsonData["data"];
+      final result = ChartResponse.fromJson(data);
+      return result;
     } catch (e) {
       e as DioError;
       throw e.error;
