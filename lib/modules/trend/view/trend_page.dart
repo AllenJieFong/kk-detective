@@ -40,7 +40,9 @@ class TrendPage extends StatelessWidget {
 
         List<Widget> uiList = [];
         uiList.add(chartItem);
+        uiList.add(getTitleSection("超人氣關鍵字", AppColors.chartColor1));
         uiList.addAll(relatedQueryTopList);
+        uiList.add(getTitleSection("飆升關鍵字", AppColors.chartColor3));
         uiList.addAll(relatedQueryRisingList);
         return Container(
           color: AppColors.bgColor,
@@ -52,22 +54,47 @@ class TrendPage extends StatelessWidget {
     );
   }
 
-  Widget getRelatedQueryTopItem(QueryInfoModel data) {
-    String title = data.query ?? "";
-    title += " [Top]";
+  Widget getTitleSection(String title, Color color) {
     return Card(
+      color: color,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.all(12),
+        child: CommonUI.commonText(title, size: 30, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget getRelatedQueryTopItem(QueryInfoModel data) {
+    String title = data.query ?? "";
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.all(12),
         child: Row(
           children: [
             CommonUI.commonText(title, size: 20, color: AppColors.chartColor1),
             const SizedBox(width: 10),
-            CommonUI.commonText(
-              data.rankingValue.toString(),
-              size: 20,
-            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 50.0,
+                minWidth: 50.0,
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColors.chartColor1,
+                ),
+                child: CommonUI.commonText(data.rankingValue.toString(),
+                    size: 24, color: Colors.white),
+              ),
+            )
           ],
         ),
       ),
@@ -76,20 +103,32 @@ class TrendPage extends StatelessWidget {
 
   Widget getRelatedQueryRisingItem(QueryInfoModel data) {
     String title = data.query ?? "";
-    title += " [Rising]";
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.all(12),
         child: Row(
           children: [
-            CommonUI.commonText(title, size: 20, color: AppColors.chartColor1),
-            const SizedBox(width: 10),
-            CommonUI.commonText(
-              data.rankingValue.toString(),
-              size: 20,
-            ),
+            CommonUI.commonText(title, size: 20, color: AppColors.chartColor3),
+            const SizedBox(width: 20),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 50.0,
+                minWidth: 50.0,
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColors.chartColor3,
+                ),
+                child: CommonUI.commonText(data.rankingValue.toString(),
+                    size: 24, color: Colors.white),
+              ),
+            )
           ],
         ),
       ),

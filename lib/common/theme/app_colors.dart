@@ -12,8 +12,9 @@ class AppColors {
   static const Color summaryTextColor = Color(0xFFcccccc);
   static const Color unselectedColor = Color(0x69e0e0e0);
   static const Color selectedColor = Color(0xff00b76c);
-  static const Color chartColor1 = Color(0xffff00e7);
+  static const Color chartColor1 = Color(0xffFF5151);
   static const Color chartColor2 = Color(0xffffaf00);
+  static const Color chartColor3 = Color(0xffBF0060);
   static const Color dropdownIcon = Color(0xff006d39);
 
   //Figma Colors
